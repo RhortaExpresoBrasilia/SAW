@@ -1,0 +1,20 @@
+  .login-form {
+    max-width: 400px;
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .button-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center; 
+  }
+  
+  .full-height {
+    margin-top: 30px; /* Altura completa de la ventana del navegador */
+  }

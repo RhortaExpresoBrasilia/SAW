@@ -1,0 +1,168 @@
+<div class="container-fluid">
+  <mat-card class="shadow">
+    <mat-card-header class="card-header">
+      <mat-card-title>
+        <h2 class="text-light my-1"> Actualización de pasajero</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row mt-4 mb-4">
+        <div class="col-4">
+          <mat-form-field>
+            <mat-label class="mat-form-field-label">Número de bono</mat-label>
+            <input matInput (change)="changeSearchInput(bono)" [(ngModel)]="bono" #input>
+          </mat-form-field>
+
+        </div>
+        <div class="col-2">
+          <app-http-button class="mt-2" [disabled]="buttonSearch" [color]="colorButton" (onClick)="applyFilter(bono)"
+            [text]="textButton"></app-http-button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <mat-form-field [ngClass]="{'custom-disabled': disableInput}">
+            <mat-label class="mat-form-field-label">Número de prescripción</mat-label>
+            <input [disabled]="disableInput" matInput [(ngModel)]="formData.prescripcion" #input>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <mat-label class="mat-form-field-label">Número de autorización</mat-label>
+            <input [disabled]="disableInput" matInput [(ngModel)]="formData.autorizacion" #input>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <mat-label class="mat-form-field-label">Número de entrega</mat-label>
+            <input [disabled]="disableInput" matInput [(ngModel)]="formData.entrega" #input>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <mat-label class="mat-form-field-label">Número de NAP</mat-label>
+            <input [disabled]="disableInput" matInput [(ngModel)]="formData.nap" #input>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <mat-form-field>
+            <mat-label class="mat-form-field-label">Identificación del paciente</mat-label>
+            <input [disabled]="disableInput" matInput [(ngModel)]="formData.identificacionPaciente" #input>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <mat-label class="mat-form-field-label">Nombre del paciente</mat-label>
+            <input [disabled]="disableInput" matInput [(ngModel)]="formData.nombrePaciente" #input>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <mat-label class="mat-form-field-label">Identificación del pasajero</mat-label>
+            <input matInput [disabled]="disableInput" [(ngModel)]="formData.identificacionPasajero" #input>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <mat-label class="mat-form-field-label">Nombre del pasajero</mat-label>
+            <input [disabled]="disableInput" matInput [(ngModel)]="formData.nombrePasajero" #input>
+          </mat-form-field>
+        </div>
+      </div>
+      <section *ngIf="visible">
+        <mat-card-header class="card-header row">
+          <mat-card-title>
+            <h2 class="text-light my-1">Nuevo acompañante</h2>
+          </mat-card-title>
+        </mat-card-header>
+        <div class="row mt-3">
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-label class="mat-form-field-label">Número de identificación</mat-label>
+              <input matInput [(ngModel)]="formDataPassenger.newIdentificacionPasajero"
+                oninput="this.value = this.value.toUpperCase()" #input>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-label class="mat-form-field-label">Tipo de documento</mat-label>
+              <mat-select [formControl]="selectedType">
+                <mat-option *ngFor="let documento of documentsType" [value]="documento.tipoIde">
+                  {{ documento.descripcion }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-label class="mat-form-field-label">Primer nombre</mat-label>
+              <input matInput [(ngModel)]="formDataPassenger.primerNombre"
+                oninput="this.value = this.value.toUpperCase()" #input>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-label class="mat-form-field-label">Segundo nombre</mat-label>
+              <input matInput [(ngModel)]="formDataPassenger.segundoNombre"
+                oninput="this.value = this.value.toUpperCase()" #input>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-label>Primer apellido</mat-label>
+              <input matInput [(ngModel)]="formDataPassenger.primerApellido"
+                oninput="this.value = this.value.toUpperCase()" #input>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-label>Segundo apellido</mat-label>
+              <input matInput [(ngModel)]="formDataPassenger.segundoApellido"
+                oninput="this.value = this.value.toUpperCase()" #input>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-label>Celular</mat-label>
+              <input matInput [(ngModel)]="formDataPassenger.telefono" #input>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-label>Correo electronico</mat-label>
+              <input matInput [(ngModel)]="formDataPassenger.email" #input>
+            </mat-form-field>
+          </div>
+        </div>
+      </section>
+      <div class="row justify-content-end">
+        <div class="col-auto">
+          <app-http-button *ngIf="visibleButon" [disabled]="activeToogle" [text]="textbuttonEdit"
+            [color]="colorButtonEdit" (onClick)="onToggleChange()"></app-http-button>
+        </div>
+      </div>
+      <div class="row justify-content-end" *ngIf="visible">
+        <div class="col-auto">
+          <app-http-button *ngIf="visibleButonSave" [text]="'Guardar'" [color]="'primary'"
+            (onClick)="upgradePassenger()"></app-http-button>
+        </div>
+        <div class="col-auto">
+          <app-http-button *ngIf="visibleButonSearch" [text]="'Buscar'" [color]="'primary'"
+            (onClick)="searchPassanger($event)"></app-http-button>
+
+          <app-http-button *ngIf="visible" [text]="'Limpiar'" [color]="'warn'"
+            (onClick)="cleanPassanger()"></app-http-button>
+        </div>
+      </div>
+    </mat-card-content>
+    <div class="overlay" *ngIf="loading"></div>
+    <mat-progress-spinner *ngIf="loading" mode="indeterminate" class="spinner">
+    </mat-progress-spinner>
+  </mat-card>
+</div>
+<app-Template-email style="display: none;" [url]="urlToSend" [eps]="eps" [contrato]="numContrato"></app-Template-email>

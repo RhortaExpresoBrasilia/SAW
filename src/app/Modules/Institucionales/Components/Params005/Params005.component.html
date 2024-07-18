@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <mat-card class="shadow">
+    <mat-card-header class="card-header">
+      <mat-card-title>
+        <h2 class="text-light my-1"> Descargar y actualizar bonos</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="mt-4">
+      <mat-tab-group>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="mr-5">cloud_download</mat-icon>
+            Descargar
+          </ng-template>
+          <app-Search-bonnus-for-date (dataToTable)="onDataReceivedDataToDownload($event)"></app-Search-bonnus-for-date>
+          <app-table-download [dataToTable]="dataToTableDownload"></app-table-download>
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="mr-5">cloud_upload</mat-icon>
+            Subir autorizaciones
+          </ng-template>
+          <div class="row">
+            <div class="col-10">
+              <app-upload-file (dataExtracted)="onDataToRecivedDataTable($event)"></app-upload-file>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <app-Table-update-bonuses [dataToTable]="dataToTableDownload2"></app-Table-update-bonuses>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+
+    <div class="overlay" *ngIf="loading"></div>
+    <mat-progress-spinner *ngIf="loading" mode="indeterminate" class="spinner">
+    </mat-progress-spinner>
+  </mat-card>
+</div>

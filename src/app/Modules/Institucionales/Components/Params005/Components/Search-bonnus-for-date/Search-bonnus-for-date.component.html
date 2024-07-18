@@ -1,0 +1,48 @@
+<div [formGroup]="range">
+  <div class="row mt-4">
+    <div class="col-3">
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Número de contrato</mat-label>
+        <input matInput placeholder="Número de contrato" formControlName="contract">
+        <mat-icon matSuffix>confirmation_number</mat-icon>
+        <mat-error *ngIf="range.controls['contract'].touched && range.controls['contract'].hasError('contractInvalid')">
+          {{ range.controls['contract'].getError('contractInvalid') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-4">
+      <!-- <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Seleccione un rango de fechas</mat-label>
+        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+          <input matStartDate formControlName="start" placeholder="Fecha inicial">
+          <input matEndDate formControlName="end" placeholder="Fecha final">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+        <mat-error *ngIf="range.controls['start'].hasError('matStartDateInvalid')">
+          Debe seleccionar un rango de fechas
+        </mat-error>
+      </mat-form-field> -->
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Seleccione un rango de fechas</mat-label>
+        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+          <input matStartDate formControlName="start" placeholder="Fecha inicial">
+          <input matEndDate formControlName="end" placeholder="Fecha final">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+        <mat-error *ngIf="range.controls['start'].hasError('matStartDateInvalid')">
+          Debe seleccionar un rango de fechas
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-2 justify-content-center">
+      <button (click)="search()" mat-mini-fab [color]="'primary'" aria-label="Example icon button with a menu icon">
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="overlay" *ngIf="loading"></div>
+    <mat-progress-spinner *ngIf="loading" mode="indeterminate" class="spinner">
+    </mat-progress-spinner>

@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-between mt-2">
+  <h2 class="align-self-start">Numero de bono {{bono}}</h2>
+  <app-http-button [text]="'X'" [color]="'link'" (onClick)="closeDialog()" [mat-dialog-close]="true"></app-http-button>
+</div>
+<div mat-dialog-content>
+  <div class="container">
+    <form [formGroup]="UpdateForm" class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Prescipción</mat-label>
+        <input matInput formControlName="prescripcion">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Numero de entrega</mat-label>
+        <input matInput formControlName="numEntrega">
+      </mat-form-field>
+    </form>
+
+  </div>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end space">
+
+  <app-http-button [text]="'Actualizar'" [color]="'primary'" (onClick)="updateData()"></app-http-button>
+</div>
+<app-Spinner [loading]="loading"></app-Spinner>

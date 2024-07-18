@@ -1,0 +1,95 @@
+.mat-mdc-form-field {
+  margin-right: 15px;
+  width: 100%;
+  font-size: 20px;
+  font-family: 'Oswald';
+
+  .mdc-text-field--disabled {
+    background-color: #c0c0c060 !important;
+    color: black;
+    .mat-form-field-label {
+      color: rgba(15, 15, 15, 0.738) !important;
+    }
+
+  }
+
+  .mdc-text-field--filled {
+    --mdc-filled-text-field-active-indicator-height: 2px;
+    --mdc-filled-text-field-active-indicator-color: rgb(58, 143, 212);
+    
+  }
+  
+}
+
+.mat-button-toggle.mat-button-toggle-checked {
+  background-color: rgb(86, 197, 86);
+  color: white;
+}
+
+.check-icon {
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+.mat-button-toggle-checked .check-icon {
+  opacity: 1;
+}
+
+.mat-form-field-label {
+  font-family: 'Oswald';
+  font-size: 20px;
+}
+
+input{
+  color:rgba(0, 0, 0, 0.885) ! important;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000; 
+  color:red;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(141, 140, 140, 0.359);
+  z-index: 999; 
+}
+
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #08549c;
+}
+
+.card-mat{
+  border: 1px black solid;
+}
+.card-header{
+  background-color: #08549c;
+  height: 70px;
+  color: white;
+  font-family: 'Oswald' ;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.text-light {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-light-rgb), var(--bs-text-opacity)) !important;
+  font-size: 30px;
+  font-family: 'Oswald' ;
+}
+
+.shadow {
+  box-shadow: var(--bs-box-shadow) !important;
+  border-radius: 5px;
+}

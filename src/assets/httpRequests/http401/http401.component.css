@@ -1,0 +1,5 @@
+.error-container {
+    height: 94vh; /* Hace que el contenedor ocupe toda la altura de la pantalla */
+    background-color: #08549c; /* Color primario de Brasilia */
+    color: #FFFFFF; /* Color de texto */
+}

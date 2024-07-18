@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <mat-card class="shadow">
+
+    <mat-card-header class="card-header">
+      <mat-card-title>
+        <h2 class="text-light my-1">Autorizaciones pendientes</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="mt-4">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <mat-form-field style="padding-right: 8px;">
+              <mat-label class="mat-form-field-label">Número de autorización</mat-label>
+              <input matInput type="text" placeholder="Número de autorización" [(ngModel)]="autorizacion">
+            </mat-form-field>
+            <button [color]="'primary'" class="btn-primary" mat-fab (click)="filtrar(autorizacion)">
+              <mat-icon class="mat-20">search</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="container" style="overflow-y: auto;max-height: 500px;overflow-x: hidden;">
+        <div class="row" *ngFor="let item  of dataLista; let i = index">
+          <mat-expansion-panel class="shadow mt-2" [hideToggle]="false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <b><strong> Autorización # {{item.id.numAutorizacion }}</strong> </b>
+              </mat-panel-title>
+              <mat-panel-description>
+                <p class="text-desc">
+                  {{ item.placa }} - {{ item.descriptConcept }} -
+                  <b class="text-desc-valor">{{ item.monto | currency:'USD':'symbol':'1.2-2' }}</b>
+                </p>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="row" *ngIf="item.concepto === '00'">
+              <div class="col-md-4">
+                <u style="text-decoration: none;">
+                  <li *ngFor="let categoria of getCategoriasGastos(item)" class="categoria-item">
+                    <div class="categoria-nombre">{{ categoria.nombre }}</div>
+                    <div class="categoria-valor">{{ categoria.valor | currency:'USD':'symbol':'1.2-2' }}</div>
+                  </li>
+                </u>
+              </div>
+            </div>
+            <mat-card-actions class="mt-2"  *ngIf ="isVisible">
+              <app-http-button [text]="'Aceptar'" [color]="'primary'"
+                (onClick)="aceptar(item.id,'AP')"></app-http-button>
+              <app-http-button [text]="'Rechazar'" [color]="'warn'" (onClick)="denegar(item.id,'RE')"></app-http-button>
+            </mat-card-actions>
+          </mat-expansion-panel>
+        </div>
+
+      </div>
+
+
+      <!-- <div class="row" style="overflow-y:hiden;overflow-x: auto; max-height: 600px;">
+        
+      </div> -->
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<app-Spinner [loading]="loading"></app-Spinner>
+<!-- <app-LoginModal></app-LoginModal> -->

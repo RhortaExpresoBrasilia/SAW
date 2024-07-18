@@ -1,0 +1,13 @@
+<div class="continer-fluid full-height d-flex justify-content-center align-items-center">
+  <form class="login-form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput placeholder="Username" type="text" name="username" [(ngModel)]="formData.username">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="formData.password">
+    </mat-form-field>
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit">Login</button>
+    </div>
+  </form>
+</div>

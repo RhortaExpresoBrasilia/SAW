@@ -1,0 +1,26 @@
+.example-icon {
+  padding: 0 0;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.nav-style {
+  background-color: #08549c;
+  border-radius: 5px;
+}
+
+.mat-toolbar-row {
+  gap: 20px;
+
+  :is(h1) {
+    font-size: 30px;
+  }
+
+  .custom-btn:hover {
+    font-size: 30px;
+    color: red;
+    background: yellow;
+  }
+}

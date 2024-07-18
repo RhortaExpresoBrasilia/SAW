@@ -1,0 +1,11 @@
+<div class="container-fluid mt-4 mb-2">
+  <div class="row">
+    <div class="col-md-4">
+      <input type="file" style="display: none" #fileInput (change)="onFileSelected($event)">
+      <button mat-raised-button (click)="fileInput.click()">Seleccionar archivo a subir<mat-icon>cloud_upload</mat-icon></button>
+    </div>
+    <div class="col-md-4">
+      <button  *ngIf="isvisible" mat-raised-button color="primary" (click)="actualizarBonos()">Actualizar bonos</button>
+    </div>
+  </div>
+</div>

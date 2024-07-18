@@ -1,0 +1,27 @@
+<mat-card class="custom-card">
+    <mat-card-header>
+        <app-input-file style="width: 100%;" (enableButton)="habilitar($event)"
+            (fileData)="onDataReceived($event)"></app-input-file>
+    </mat-card-header>
+    <mat-card-actions align="end">
+        <div>
+            <app-http-button [disabled]="buttonsDisabled.direccionamiento" [color]="color" (onClick)="getAddressings()"
+                [text]="'1->Direccionamiento'" class="mr-2"></app-http-button>
+            <app-http-button [disabled]="buttonsDisabled.programacion" [color]="color" (onClick)="getProgramming()"
+                [text]="'2->Programacion'" class="mr-2"></app-http-button>
+            <app-http-button [disabled]="buttonsDisabled.entrega" [color]="color" (onClick)="getEntrega()"
+                [text]="'3->Entrega'"></app-http-button>
+            <app-http-button [disabled]="buttonsDisabled.reporteEntrega" [color]="color" (onClick)="reporteEntrega()"
+                [text]="'4->Reporte entrega'"></app-http-button>
+            <app-http-button [disabled]="buttonsDisabled.facturacion" [color]="color" (onClick)="getFacturacion()"
+                [text]="'5->Facturacion'"></app-http-button>
+        </div>
+    </mat-card-actions>
+    <mat-card-content>
+        <app-table [displayedColumns]="displayedColumns" [dataToTable]="dataToTable"></app-table>
+        
+    </mat-card-content>
+    <div class="overlay" *ngIf="loading"></div>
+        <mat-progress-spinner *ngIf="loading" mode="indeterminate" class="spinner">
+        </mat-progress-spinner>
+</mat-card>

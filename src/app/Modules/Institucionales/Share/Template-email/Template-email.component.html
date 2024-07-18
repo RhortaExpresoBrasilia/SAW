@@ -1,0 +1,54 @@
+<!-- <div class="container" #templateContent>
+  <div class="row">
+    <div class="col-md-12">
+      <a [href]="url" target="_blank"  class="btn btn-success">Descargue aqui</a>
+    </div>
+  </div>
+</div> -->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Botón de Descarga</title>
+</head>
+
+<body #templateContent
+  style="display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Roboto', sans-serif; background-color: #f0f0f0;">
+
+  <div style="
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px 30px;
+      max-width: 600px;
+      text-align: center;
+  ">
+    <h2 style="color: #333; margin-bottom: 20px; font-size: 18px;">Notificación {{eps}} - {{contrato}}</h2>
+    <p style="color: #666; margin-bottom: 20px; font-size: 16px;">Los datos del pasajero en su bono han sido modificados. Por favor,
+      descargue el documento actualizado a continuación.</p>
+
+    <a [href]="url" target="_blank" style="
+          display: inline-block;
+          background-color: #0f1efc;
+          color: white;
+          text-decoration: none;
+          border: none;
+          border-radius: 4px;
+          padding: 10px 20px;
+          font-size: 16px;
+          cursor: pointer;
+          box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 
+                      0px 2px 2px 0px rgba(0, 0, 0, 0.14), 
+                      0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+          transition: background-color 0.3s ease;
+      " onmouseover="this.style.backgroundColor='#3700b3';" onmouseout="this.style.backgroundColor='#6200ea';">
+      Descargue el documento
+    </a>
+  </div>
+
+</body>
+
+</html>

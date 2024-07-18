@@ -1,0 +1,44 @@
+.add-button {
+    color: #fff !important;
+    background-color: #28a745 !important;
+}
+
+.example-container {
+    position: relative;
+}
+
+.example-table-container {
+    position: relative;
+    overflow: auto;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-mdc-header-cell {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: #e0e0e0 !important;
+}
+
+.mat-mdc-paginator {
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.action-cell {
+    display: flex;
+    justify-content: space-around;
+}
+
+.action-button {
+    margin: 0;
+}
