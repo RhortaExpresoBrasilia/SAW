@@ -35,24 +35,11 @@ export class Params003Component implements OnInit {
     alert('test');
   }
 
-  reporteEntrega():void{
-    this._apiTable.getReporteEntrega(this.convertListBonos()).subscribe((response:any)=>{
-      
-      this.getDatatoTable();
-     
-    })
-  }
-  getFacturacion(){
-    this._apiTable.getFacturacion(this.convertListBonos()).subscribe((response:any)=>{
-      this.getDatatoTable();
-
-    })
-  }
+ 
 
   onDataReceived(data: any) {
     this.dataToTable = data;
     console.log(data);
-    
     this.loading = false;
   }
 
@@ -74,13 +61,13 @@ export class Params003Component implements OnInit {
     }
 
     if (contadorDireccionamiento === bonosTotal) {
-      this.buttonsDisabled = {
-        direccionamiento: false,
-        programacion: false,
-        entrega: true,
-        reporteEntrega: true,
-        facturacion: true,
-      }
+      // this.buttonsDisabled = {
+      //   direccionamiento: false,
+      //   programacion: false,
+      //   entrega: true,
+      //   reporteEntrega: true,
+      //   facturacion: true,
+      // }
     }
   }
   getAddressings() {
@@ -88,7 +75,13 @@ export class Params003Component implements OnInit {
     this.loading = true;
     this._apiTable.getAddressingsList(this.convertListBonos()).subscribe((response) => {
       this.getDatatoTable();
-     
+      this.buttonsDisabled = {
+        direccionamiento: true,
+        programacion: false,
+        entrega: true,
+        reporteEntrega: true,
+        facturacion: true,
+      }
       this.loading = false;
     })
   }
@@ -97,6 +90,13 @@ export class Params003Component implements OnInit {
     this.loading = true;
     this._apiTable.getProgramming(this.convertListBonos()).subscribe((response) => {
       this.getDatatoTable();
+      this.buttonsDisabled = {
+        direccionamiento: true,
+        programacion: true,
+        entrega: false,
+        reporteEntrega: true,
+        facturacion: true,
+      }
     }, (err) => {
       console.log(err);
     })
@@ -106,9 +106,35 @@ export class Params003Component implements OnInit {
   this.loading = true;
   this._apiTable.getDelivery(this.convertListBonos()).subscribe((response) => {
     this.getDatatoTable();
+    // this.buttonsDisabled = {
+    //   direccionamiento: true,
+    //   programacion: true,
+    //   entrega: true,
+    //   reporteEntrega: false,
+    //   facturacion: true,
+    // }
   }, (err) => {
     console.log(err);
   })
+  }
+
+  reporteEntrega():void{
+    this.loading = true;
+    this._apiTable.getReporteEntrega(this.convertListBonos()).subscribe((response:any)=>{
+      this.getDatatoTable();
+      this.buttonsDisabled = {
+        direccionamiento: true,
+        programacion: true,
+        entrega: true,
+        reporteEntrega: true,
+        facturacion: false,
+      }
+    })
+  }
+  getFacturacion(){
+    this._apiTable.getFacturacion(this.convertListBonos()).subscribe((response:any)=>{
+      this.getDatatoTable();
+    })
   }
 
   getDatatoTable() {

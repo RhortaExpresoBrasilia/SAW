@@ -1,7 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { GeneralService } from 'src/app/Modules/Institucionales/Services/General.service';
+import { AuthService } from '../../../../../../services/auth.service';
 @Component({
   selector: 'app-Search-bonnus-for-date',
   templateUrl: './Search-bonnus-for-date.component.html',
@@ -13,7 +15,7 @@ export class SearchBonnusForDateComponent implements OnInit {
   @Output() dataToTable = new EventEmitter<any>();
   loading: boolean = false;
 
-  constructor(private _api: GeneralService, private datePipe: DatePipe) {
+  constructor(private router: Router,private _api: GeneralService, private datePipe: DatePipe, private _auth: AuthService) {
     this.range = new FormGroup({
       start: new FormControl<Date | null>(null, [Validators.required, this.startDateValidator]),
       end: new FormControl<Date | null>(null, [Validators.required, this.endDateValidator]),
@@ -70,7 +72,7 @@ export class SearchBonnusForDateComponent implements OnInit {
   //     endDate: this.datePipe.transform(this.range.value.end, 'yyyy-MM-dd'),
   //     numContract: this.range.value.contract,
   //   }
-  //   console.log("data a enviar", data);
+  //   
 
   //   this._api.searchListOfContractBonuses(data).subscribe((response: any) => {
   //   if(response.error === false ){
@@ -93,13 +95,15 @@ export class SearchBonnusForDateComponent implements OnInit {
       endDate: this.datePipe.transform(this.range.value.end, 'yyyy-MM-dd'),
       numContract: this.range.value.contract,
     }
-    console.log("data a enviar", data);
-
+  
     this._api.searchListOfContractBonuses(data).subscribe((response: any) => {
       if (response.error === false) {
         this.loading = false;
         this.dataToTable.emit(response.data);
       }
+    },(err)=>{
+      this._auth.logout();
+      return;
     });
   }
 }

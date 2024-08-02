@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { GeneralService } from 'src/app/Modules/Institucionales/Services/General.service';
 import { TableListBonos } from 'src/app/models/user-data';
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
-import { ActivatedRoute } from '@angular/router';
-import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 @Component({
   selector: 'app-upload-file',
@@ -84,7 +84,7 @@ export class UploadFileComponent implements OnInit {
     this._api.updateBonusssesNumAuto(this.extractedData,this.username).subscribe((response) => {
       if (response.error === false) {
         Swal.fire({
-          title: "Listado actulizado con exito",
+          title: "Listado actualizado con exito",
           text: response.message,
           icon: "success"
         });
