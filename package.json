@@ -23,6 +23,7 @@
     "bootstrap": "^5.3.2",
     "jwt-decode": "^4.0.0",
     "rxjs": "~7.8.0",
+    "saw": "file:",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.10.8",
     "tslib": "^2.3.0",

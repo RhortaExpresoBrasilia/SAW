@@ -75,6 +75,8 @@ export class TableReportMipresService {
   // }
 
   exportDataTableReport(listBonos: any) {
+    console.log(listBonos);
+    
     const nuevoListado = listBonos.map((element: any) => ({
       '# Bono': element.numBono || '',
       'Prescripcion': element.noPrescripcion || '',
@@ -86,7 +88,7 @@ export class TableReportMipresService {
       'Nro factura': element.nfactura || '',
       'Nap': element.napPac || '',
       'Orden': element.noEntregaPac || '',
-      'Fecha de entrega': element.fecBono ? element.fecBono.split('T')[0] : '',
+      'Fecha de entrega': element.fechaEntrega ? element.fechaEntrega.split('T')[0] : '',
       'Programacion': element.programacion ? element.programacion.ID : 0,
       'Entrega': element.entrega ? element.entrega.ID : 0,
       'ReporteEntrega': element.reporteEntrega ? element.reporteEntrega.id : 0,
@@ -105,4 +107,10 @@ export class TableReportMipresService {
     return formatter.format(value).replace('COP', currencySymbol);
   }
 
+
+  actualizarBonos(data:any):Observable<any>{
+    return this._http.post<any>(
+      `${environment.urlV1}/bonosLegalizados/actualizar-fecha-entrega`, data
+    )
+  }
 }

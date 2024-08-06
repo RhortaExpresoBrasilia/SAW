@@ -14,6 +14,14 @@
         <mat-label>Numero de entrega</mat-label>
         <input matInput formControlName="numEntrega">
       </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Fecha de entrega</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="fechaEntrega">
+        <!-- <mat-hint>{{ UpdateForm.get('fechaEntrega')?.value | date:'yyyy-MM-dd' }}</mat-hint> -->
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
     </form>
 
   </div>

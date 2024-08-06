@@ -1,12 +1,11 @@
 import { AfterViewInit, Component, Input, SimpleChange, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { TableListBonos, TableMipres,TableUpdateBonnus } from 'src/app/models/user-data';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../../../Modules/Institucionales/Share/Dialog/Dialog.component';
+import { TableListBonos, TableMipres, TableUpdateBonnus } from 'src/app/models/user-data';
 import { TableReportMipresService } from 'src/app/Modules/Institucionales/Services/tableReportMipres.service';
-import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { DialogComponent } from '../../../Modules/Institucionales/Share/Dialog/Dialog.component';
 
 @Component({
   selector: 'app-table',
@@ -82,7 +81,7 @@ export class TableComponent implements AfterViewInit {
 
   chargeDataToTable() {
     this.loading = true;
-    
+
     this.dataSource = new MatTableDataSource<any>(this.dataToTable);
     this.dataSource.paginator = this.paginator;
     this.loading = false;
@@ -129,5 +128,20 @@ export class TableComponent implements AfterViewInit {
       }
     }
 
+  }
+
+  clearTable(): void {
+    if (this.dataToTable.length === 0) {
+      Swal.fire({
+        title: 'Atencion',
+        text: 'No hay datos para borrar',
+        icon: 'warning'
+      })
+      return;
+    }
+    
+
+    this.dataSource.data = [];
+    window.location.reload()
   }
 }

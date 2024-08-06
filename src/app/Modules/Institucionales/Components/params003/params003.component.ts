@@ -39,7 +39,7 @@ export class Params003Component implements OnInit {
 
   onDataReceived(data: any) {
     this.dataToTable = data;
-    console.log(data);
+    
     this.loading = false;
   }
 
@@ -98,7 +98,7 @@ export class Params003Component implements OnInit {
         facturacion: true,
       }
     }, (err) => {
-      console.log(err);
+      
     })
   }
 
@@ -114,7 +114,7 @@ export class Params003Component implements OnInit {
     //   facturacion: true,
     // }
   }, (err) => {
-    console.log(err);
+    
   })
   }
 
@@ -153,7 +153,7 @@ export class Params003Component implements OnInit {
 
   transformData(listBonos:any){
     const data = this._apiTable.exportDataTableReport(listBonos);
-    console.log("desde el transform ",data);
+    
     this.onDataReceived(data);
     this.loading= false;
   }

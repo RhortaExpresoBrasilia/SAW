@@ -21,6 +21,9 @@ export class InputFileComponent implements OnInit {
     reporteEntrega:true,
     facturacion:true,
   }
+
+  arrayA:any;
+  updateBonnuses!:any[];
   constructor(private _api: TableReportMipresService) { }
 
   ngOnInit() {
@@ -29,42 +32,72 @@ export class InputFileComponent implements OnInit {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     const allowedExtensions = ['.xlsx', '.xls']; // Extensiones permitidas
-
+  
     if (file) {
       this.loading = true;
       const fileName: string = file.name;
       const fileExtension: string = fileName.substring(fileName.lastIndexOf('.'));
-
+  
       if (allowedExtensions.includes(fileExtension.toLowerCase())) {
-
-
         this.reader = new FileReader();
         this.reader.onload = (e: any) => {
           const workbook: XLSX.WorkBook = XLSX.read(e.target.result, { type: 'binary' });
           const sheetName: string = workbook.SheetNames[0];
           const worksheet: XLSX.WorkSheet = workbook.Sheets[sheetName];
-
+  
           const range = worksheet['!ref'] || 'A1:A1';
           const decodedRange = XLSX.utils.decode_range(range);
-          const data: any[] = [];
-
+          const arrayA: any[] = []; // Array para los valores de la columna A
+          const result: any[] = []; // Array para almacenar los objetos
+  
           for (let R = decodedRange.s.r; R <= decodedRange.e.r; ++R) {
-            for (let C = decodedRange.s.c; C <= decodedRange.e.c; ++C) {
-              const cellAddress = { c: C, r: R };
-              const cellRef = XLSX.utils.encode_cell(cellAddress);
-              const cell = worksheet[cellRef];
-              if (cell) {
-                data.push(cell.v.trim());
+            const cellAddressA = { c: 0, r: R }; // Columna A es índice 0
+            const cellAddressB = { c: 1, r: R }; // Columna B es índice 1
+            
+            const cellRefA = XLSX.utils.encode_cell(cellAddressA);
+            const cellRefB = XLSX.utils.encode_cell(cellAddressB);
+            
+            const cellA = worksheet[cellRefA];
+            const cellB = worksheet[cellRefB];
+  
+            let bonoValue = cellA ? String(cellA.v).trim() : '';
+            let fechaValue = '';
+  
+            // Verificar si las celdas no están vacías antes de agregarlas al array
+            if (bonoValue) {
+              arrayA.push(bonoValue);
+            }
+  
+            if (cellB) {
+              const rawValue = cellB.v;
+              if (rawValue instanceof Date) {
+                fechaValue = this.formatDate(rawValue);
+              } else if (!isNaN(rawValue)) {
+                const dateValue = XLSX.SSF.parse_date_code(rawValue);
+                fechaValue = this.formatDate(new Date(dateValue.y, dateValue.m - 1, dateValue.d));
+              } else {
+                fechaValue = String(rawValue).trim();
+              }
+  
+              if (fechaValue && bonoValue) {
+                result.push({
+                  numBono: bonoValue,
+                  fecha: fechaValue
+                });
               }
             }
           }
 
-          const flatData = data.flat();
-          this.proccessBonos(flatData);
-
+          
+          
+          this.proccessBonos(arrayA); // Procesa el array de valores de la columna A
+          this.updateBonnuses = result;
+          this.arrayA = arrayA;
+          //this.proccessBonos(result); // Procesa el array de objetos con bono y fecha
+  
           this.reader!.onload = null;
         }
-
+  
         this.reader.readAsBinaryString(file);
       } else {
         Swal.fire({
@@ -75,8 +108,66 @@ export class InputFileComponent implements OnInit {
       }
     }
   }
+  
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  // onFileSelected(event: any) {
+  //   const file: File = event.target.files[0];
+  //   const allowedExtensions = ['.xlsx', '.xls']; // Extensiones permitidas
+
+  //   if (file) {
+  //     this.loading = true;
+  //     const fileName: string = file.name;
+  //     const fileExtension: string = fileName.substring(fileName.lastIndexOf('.'));
+
+  //     if (allowedExtensions.includes(fileExtension.toLowerCase())) {
+
+
+  //       this.reader = new FileReader();
+  //       this.reader.onload = (e: any) => {
+  //         const workbook: XLSX.WorkBook = XLSX.read(e.target.result, { type: 'binary' });
+  //         const sheetName: string = workbook.SheetNames[0];
+  //         const worksheet: XLSX.WorkSheet = workbook.Sheets[sheetName];
+
+  //         const range = worksheet['!ref'] || 'A1:A1';
+  //         const decodedRange = XLSX.utils.decode_range(range);
+  //         const data: any[] = [];
+
+  //         for (let R = decodedRange.s.r; R <= decodedRange.e.r; ++R) {
+  //           for (let C = decodedRange.s.c; C <= decodedRange.e.c; ++C) {
+  //             const cellAddress = { c: C, r: R };
+  //             const cellRef = XLSX.utils.encode_cell(cellAddress);
+  //             const cell = worksheet[cellRef];
+  //             if (cell) {
+  //               data.push(cell.v.trim());
+  //             }
+  //           }
+  //         }
+
+  //         const flatData = data.flat();
+  //         this.proccessBonos(flatData);
+
+  //         this.reader!.onload = null;
+  //       }
+
+  //       this.reader.readAsBinaryString(file);
+  //     } else {
+  //       Swal.fire({
+  //         title: "Error al seleccionar el archivo!",
+  //         text: "Archivo inválido. Selecciona un archivo de Excel.",
+  //         icon: "error"
+  //       });
+  //     }
+  //   }
+  // }
 
   proccessBonos(bonos: string[]) {
+
 
     if (bonos.length) {
 
@@ -86,6 +177,8 @@ export class InputFileComponent implements OnInit {
       
       this._api.getDataTableReportMipres(bonos).subscribe(
         (response: any) => {
+          
+          
           this.validateNull(response)
           this.loading = true;
 
@@ -97,6 +190,15 @@ export class InputFileComponent implements OnInit {
       );
     }
   }
+
+  proccessBonos2(bonos: string[]) {
+    if (bonos.length) {
+      this._api.getDataTableReportMipres(bonos).subscribe((res)=>{
+        this.fileData.emit(res);
+      });
+    }
+  }
+  
   validateNull(bonos: any) {
     let contadorPrescripcionCeroOVacio = 0;
     let contadorEntregaCeroOVacio = 0;
@@ -150,7 +252,11 @@ export class InputFileComponent implements OnInit {
       if (result.isConfirmed) {
         this.downloadExcel(bonosUnicosCumplenCondicion, 'bonos con prescripcion')
       } else {
+        
         this.fileData.emit(bonos);
+        if(this.updateBonnuses.length !=0){
+          this.updateDate(this.updateBonnuses)
+        }
         
         if (bonosTotal === contadorPrescripcionCeroOVacio) {
           
@@ -173,6 +279,26 @@ export class InputFileComponent implements OnInit {
     });
   }
 
+  updateDate(bonusData:any){
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Deseas actualizar la fecha de los bonos?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Actualizar',
+      cancelButtonText: 'Continuar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._api.actualizarBonos(bonusData).subscribe((response:any)=>{
+          this.proccessBonos2(this.arrayA)
+        })
+      } else {
+        
+      }
+    });
+  }
   downloadExcel(bonos: string[], fileName: string) {
 
     const wb = XLSX.utils.book_new();

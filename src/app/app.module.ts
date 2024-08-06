@@ -61,6 +61,7 @@ import { AuthService } from './services/auth.service';
 import { ErrorInterceptorService } from './services/ErrorInterceptor.service';
 import { JwtInterceptorService } from './services/JwtInterceptor.service';
 
+
 registerLocaleData(localeEs);
 
 @NgModule({
