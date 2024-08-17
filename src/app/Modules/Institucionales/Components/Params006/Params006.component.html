@@ -1,0 +1,22 @@
+<mat-card style="box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.3);">
+    <mat-card-header>
+        <mat-card-title><h4> CREACIÓN MASIVA DE BONOS</h4></mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+            <app-Upload-bond-list (headersChanged)="onHeadersChanged($event)" (dataChanged)="onDataChanged($event)"></app-Upload-bond-list>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <app-Table-bonds [headers]="headers" [data]="myData" [itemsPerPage]="10"></app-Table-bonds>
+            </div>
+          </div>
+        </div>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    
+</mat-card>

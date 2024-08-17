@@ -52,6 +52,9 @@ import { TableDownloadComponent } from './Modules/Institucionales/Components/Par
 import { TableUpdateBonusesComponent } from './Modules/Institucionales/Components/Params005/Components/Table-update-bonuses/Table-update-bonuses.component';
 import { UploadFileComponent } from './Modules/Institucionales/Components/Params005/Components/upload-file/upload-file.component';
 import { Params005Component } from './Modules/Institucionales/Components/Params005/Params005.component';
+import { TableBondsComponent } from './Modules/Institucionales/Components/Params006/Components/Table-bonds/Table-bonds.component';
+import { UploadBondListComponent } from './Modules/Institucionales/Components/Params006/Components/Upload-bond-list/Upload-bond-list.component';
+import { Params006Component } from './Modules/Institucionales/Components/Params006/Params006.component';
 import { DialogComponent } from './Modules/Institucionales/Share/Dialog/Dialog.component';
 import { InputFileComponent } from './Modules/Institucionales/Share/input-file/input-file.component';
 import { TemplateEmailComponent } from './Modules/Institucionales/Share/Template-email/Template-email.component';
@@ -74,6 +77,7 @@ registerLocaleData(localeEs);
     Params003Component,
     Params004Component,
     Params005Component,
+    Params006Component,
     OperationsParam001Component,
     LoginComponent,
     LoginWebComponent,
@@ -88,7 +92,9 @@ registerLocaleData(localeEs);
     SearchBonnusForDateComponent,
     TableDownloadComponent,
     UploadFileComponent,
-    TableUpdateBonusesComponent
+    TableUpdateBonusesComponent,
+    UploadBondListComponent,
+    TableBondsComponent
   ],
   imports: [
     BrowserModule,
