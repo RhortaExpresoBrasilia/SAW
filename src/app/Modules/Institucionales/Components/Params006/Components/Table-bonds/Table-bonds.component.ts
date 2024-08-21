@@ -1,7 +1,10 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CreateBondsService } from 'src/app/Modules/Institucionales/Services/CreateBonds.service';
+import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
+import { keyMapping, keyMapping1 } from '../Models/KeyMappings';
 
 @Component({
   selector: 'app-Table-bonds',
@@ -18,64 +21,8 @@ export class TableBondsComponent implements OnInit {
   currentPage: number = 1;
   paginatedData: any[] = [];
   //Math: any;
-  keyMapping = {
-    "TIPO IDENTIFICACION PASAJERO": "tipoIdePasajero",
-    "IDENTIFICACION PASAJERO": "idePasajero",
-    "NOMBRE DEL PASAJERO": "nombrePasajero",
-    "NUMERO DE CONTRATO": "numeroContrato",
-    "FECHA VIAJE": "fechaViaje",
-    "CODIGO ORIGEN": "origen",
-    "CODIGO DESTINO": "destino",
-    "TIPO IDENTIFICACION PACIENTE": "tipoDocumento",
-    "IDENTIFICACION PACIENTE": "numeroDocumento",
-    "NOMBRE1": "nombre1",
-    "NOMBRE2": "nombre2",
-    "APELLIDO1": "apellido1",
-    "APELLIDO2": "apellido2",
-    "REGIMEN": "regimen",
-    "TIPO AFILIACION": "tipoAfiliacion",
-    "AUTORIZACION": "autorizacion",
-    "ZONA": "zona",
-    "CUPS": "tipoBono",
-    "SEXO PACIENTE": "sexo",
-    "TIPO BONO": "tipoBono",
-    "CODIGO DEPARTAMENTO": "codDep",
-    "CODIGO CIUDAD": "codCiu",
-    "CANTIDAD": "tipoBono",
-    "PRESCRIPCION": "prescripcion",
-    "SERVICIO": "servicio",
-    "TIPO VIAJE": "tipoViaje"
-  };
 
-  keyMapping1 = {
-    "tipoIdePasajero": "TIPO IDENTIFICACION PASAJERO",
-    "idePasajero": "IDENTIFICACION PASAJERO",
-    "nombrePasajero": "NOMBRE DEL PASAJERO",
-    "numeroContrato": "NUMERO DE CONTRATO",
-    "fechaViaje": "FECHA VIAJE",
-    "origen": "CODIGO ORIGEN",
-    "destino": "CODIGO DESTINO",
-    "tipoDocumento": "TIPO IDENTIFICACION PACIENTE",
-    "numeroDocumento": "IDENTIFICACION PACIENTE",
-    "nombre1": "NOMBRE1",
-    "nombre2": "NOMBRE2",
-    "apellido1": "APELLIDO1",
-    "apellido2": "APELLIDO2",
-    "regimen": "REGIMEN",
-    "tipoAfiliacion": "TIPO AFILIACION",
-    "autorizacion": "AUTORIZACION",
-    "zona": "ZONA",
-    "tipoBono": "CANTIDAD", // Aquí, el último valor sobrescribe al anterior "CUPS"
-    "sexo": "SEXO PACIENTE",
-    "codDep": "CODIGO DEPARTAMENTO",
-    "codCiu": "CODIGO CIUDAD",
-    "prescripcion": "PRESCRIPCION",
-    "servicio": "SERVICIO",
-    "tipoViaje": "TIPO VIAJE",
-    "numBono": "NUMERO BONO"
-  }
-
-  constructor(private _api: CreateBondsService) { }
+  constructor(private _api: CreateBondsService, private route: ActivatedRoute,private _auth: AuthService) { }
 
 
   ngOnInit() {
@@ -113,13 +60,15 @@ export class TableBondsComponent implements OnInit {
   proccessData() {
     if (this.data.length > 0) {
       this.loading = true;
-      const updatedArray = this.renameKeysInArray(this.data, this.keyMapping);
-      console.log(updatedArray);
-
-      this._api.cargaMasivaBonos(updatedArray).subscribe((response) => {
+      const updatedArray = this.renameKeysInArray(this.data, keyMapping);
+      const credentials = {
+        usuario: this.route.snapshot.params['username'],
+        password: this.route.snapshot.params['password']
+      }
+      this._api.cargaMasivaBonos(updatedArray, credentials).subscribe((response) => {
         this.loading = true;
         if (response.error == false) {
-          const updatedArray1 = this.renameKeysInArray(response.data, this.keyMapping1);
+          const updatedArray1 = this.renameKeysInArray(response.data, keyMapping1);
           this.data = updatedArray1;
           this.updatePagination();
           Swal.fire({
@@ -132,13 +81,19 @@ export class TableBondsComponent implements OnInit {
           this.loading = false;
         }
       }, (error) => {
-        console.error(error);
+        
         Swal.fire({
           title: 'Error',
           text: 'Hubo un error al cargar la información',
           icon: 'error',
           confirmButtonText: 'Aceptar'
         });
+
+        this.loading = false;
+        if(error === 401){
+          this._auth.logout();
+        }
+        
       })
     } else {
       Swal.fire({

@@ -7,9 +7,14 @@ import { environment } from '../../../../environments/environment';
 })
 export class CreateBondsService {
 
-constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-cargaMasivaBonos(data:any):Observable<any>{
-  return this.http.post<any>(`${environment.urlV1}/bonosLegalizados/cargue-masivo`, data);
-}
+  cargaMasivaBonos(data: any, user: any): Observable<any> {
+
+    const requestBody = {
+      entity: data,
+      usuario: user
+    };
+    return this.http.post<any>(`${environment.urlV1}/bonosLegalizados/cargue-masivo`, requestBody);
+  }
 }
