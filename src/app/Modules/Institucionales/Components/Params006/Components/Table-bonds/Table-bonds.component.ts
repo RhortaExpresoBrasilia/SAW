@@ -17,6 +17,8 @@ export class TableBondsComponent implements OnInit {
   @Input() headers!: string[]
   @Input() data: any[] = []
   @Input() itemsPerPage: number = 10;
+  @Input() displayButtons : boolean= true;
+  
   loading: boolean = false;
   currentPage: number = 1;
   paginatedData: any[] = [];

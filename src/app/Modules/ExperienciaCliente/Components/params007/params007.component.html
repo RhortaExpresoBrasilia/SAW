@@ -1,0 +1,28 @@
+<mat-card class="custom-card">
+  <mat-card-header>
+    <!--app-input-file style="width: 100%;" (enableButton)="habilitar($event)"
+          (fileData)="onDataReceived($event)"></app-input-file-->
+  </mat-card-header>
+
+  <div class="container-fluid mt-3">
+    <div class="row">
+      <div class="col">
+        <mat-card-actions align="end" class="content-buttons">
+          <div class="title">INFORMACIÓN DE VIAJE DE PASAJEROS</div>
+          <div><button mat-button class="btn-upload"><mat-icon>upload</mat-icon>Cargar</button></div>
+          <div><button mat-button class="btn-download"><mat-icon>description</mat-icon>Descargar</button></div>
+        </mat-card-actions>
+      </div>
+    </div>
+  </div>
+
+
+
+  <mat-card-content>
+    <!-- <app-table [displayedColumns]="displayedColumns" [dataToTable]="dataToTable"></app-table> -->
+    <app-Table-bonds [headers]="headers" [displayButtons]="false" [data]="data" [itemsPerPage]="10"></app-Table-bonds>
+  </mat-card-content>
+  <div class="overlay" *ngIf="loading"></div>
+  <mat-progress-spinner *ngIf="loading" mode="indeterminate" class="spinner">
+  </mat-progress-spinner>
+</mat-card>

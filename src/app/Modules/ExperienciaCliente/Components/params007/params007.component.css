@@ -1,0 +1,57 @@
+button {
+    display: flex;
+    align-items: center;
+  }
+
+mat-icon {
+    margin-right: 10px; /* Espacio entre el ícono y el texto */
+}
+
+/* Botón de "Descargar" - color verde claro */
+.btn-download {
+    display: flex;
+    align-items: center;
+    background-color: #4caf50; /* Verde claro */
+    color: white; /* Texto blanco */
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px; /* Opcional: bordes redondeados */
+    margin-right: 16px; /* Espacio entre el botón de Descargar y el de Cargar */
+  }
+  
+  .btn-download mat-icon {
+    margin-right: 8px; /* Espacio entre el ícono y el texto */
+  }
+
+/* Botón de "Cargar" - color azul claro */
+.btn-upload {
+    display: flex;
+    align-items: center;
+    background-color: #2196f3; /* Azul claro */
+    color: white; /* Texto blanco */
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px; /* Opcional: bordes redondeados */
+    margin-left: 166px; /* Ajustar si es necesario */
+  }
+  
+  .btn-upload mat-icon {
+    margin-right: 8px; /* Espacio entre el ícono y el texto */
+  }
+
+  .content-buttons{
+    gap:5px
+  }
+
+  /* Estilos para el contenedor del título */
+.title {
+  font-size: 1.5rem; /* Tamaño de fuente para el título */
+  font-weight: bold; /* Fuente en negrita */
+  margin-bottom: 16px; /* Espacio inferior para separar del resto del contenido */
+  color: #333; /* Color del texto del título (puedes ajustarlo según tu diseño) */
+  text-align: left; /* Alinear el texto a la izquierda */
+}

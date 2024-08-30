@@ -9,6 +9,7 @@
 
   <div class="table-container">
     <table class="table table-hover" mat-table [dataSource]="dataSource">
+      
       <!-- Columna de acción -->
       <ng-container matColumnDef="accion">
         <th mat-header-cell *matHeaderCellDef> Acción </th>
@@ -29,7 +30,7 @@
           </mat-menu>
         </td>
       </ng-container>
-
+    
       <!-- Columnas dinámicas -->
       <ng-container *ngFor="let column of displayedColumns.slice(1)" [matColumnDef]="column">
         <thead class="fixed-header">

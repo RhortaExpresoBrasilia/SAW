@@ -1,5 +1,5 @@
 <div class="table-responsive">
-  <div class="row">
+  <div class="row" *ngIf="displayButtons">    
     <div class="col-md-4">
       <button mat-flat-button [color]="'primary'" (click)="proccessData()">Crear bonos</button>
     </div>

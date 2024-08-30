@@ -63,6 +63,7 @@ import { LoginModalComponent } from './Modules/Operaciones/Components/Share/Logi
 import { AuthService } from './services/auth.service';
 import { ErrorInterceptorService } from './services/ErrorInterceptor.service';
 import { JwtInterceptorService } from './services/JwtInterceptor.service';
+import { Params007Component } from './Modules/ExperienciaCliente/Components/params007/params007.component';
 
 
 registerLocaleData(localeEs);
@@ -78,6 +79,7 @@ registerLocaleData(localeEs);
     Params004Component,
     Params005Component,
     Params006Component,
+    Params007Component,
     OperationsParam001Component,
     LoginComponent,
     LoginWebComponent,
