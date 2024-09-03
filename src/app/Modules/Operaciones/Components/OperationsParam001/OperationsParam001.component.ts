@@ -112,8 +112,9 @@ export class OperationsParam001Component implements OnInit {
     this._api.acutalizarEstado(id, estado).subscribe((response) => {
       if (response.error == false) {
         this.loading = false
-        this.swalAlert('Exito', response.message, 'success')
+        this.swalAlertConfirm('Exito', response.message, 'success')
         this.data = response.data;
+        
       }
     })
   }
@@ -185,6 +186,23 @@ export class OperationsParam001Component implements OnInit {
     });
   }
 
+  swalAlertConfirm2(title: string, text: string, icon: SweetAlertIcon) {
+    Swal.fire({
+      title: title,
+      showDenyButton: true,
+      showCancelButton: false,
+      text: text,
+      icon: icon,
+      confirmButtonText: "Continuar"
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.getAllAnticipos();
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  }
   getAllAnticipos() {
     this.loading = true;
     const empresa = this.route.snapshot.paramMap.get('empresa');
