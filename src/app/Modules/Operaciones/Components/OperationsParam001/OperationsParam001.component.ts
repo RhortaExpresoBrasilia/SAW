@@ -112,7 +112,7 @@ export class OperationsParam001Component implements OnInit {
     this._api.acutalizarEstado(id, estado).subscribe((response) => {
       if (response.error == false) {
         this.loading = false
-        this.swalAlertConfirm('Exito', response.message, 'success')
+        this.swalAlertConfirm2('Exito', response.message, 'success')
         this.data = response.data;
         
       }
