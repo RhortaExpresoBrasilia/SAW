@@ -1,10 +1,10 @@
 <div class="table-responsive">
-  <div class="row" *ngIf="displayButtons">    
-    <div class="col-md-4">
-      <button mat-flat-button [color]="'primary'" (click)="proccessData()">Crear bonos</button>
-    </div>
-    <div class="col-md-2">
-      <button mat-fab [color]="'warn'" (click)="exportAsExcel()"><mat-icon>cloud_download</mat-icon></button>
+  <div class="row" *ngIf="displayButtons">
+    <div class="col d-flex justify-content-end align-items-center">
+      <button mat-flat-button [color]="'primary'" (click)="proccessData()" class="mr-3">Crear bonos</button>
+      <button mat-fab [color]="'warn'" style="width: 40px; height: 40px;" (click)="exportAsExcel()">
+        <mat-icon>cloud_download</mat-icon>
+      </button>
     </div>
   </div>
   
