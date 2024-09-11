@@ -64,6 +64,8 @@ import { AuthService } from './services/auth.service';
 import { ErrorInterceptorService } from './services/ErrorInterceptor.service';
 import { JwtInterceptorService } from './services/JwtInterceptor.service';
 import { Params007Component } from './Modules/ExperienciaCliente/Components/params007/params007.component';
+import { Params008Component } from './Modules/ExperienciaCliente/Components/params008/params008.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 registerLocaleData(localeEs);
@@ -80,6 +82,7 @@ registerLocaleData(localeEs);
     Params005Component,
     Params006Component,
     Params007Component,
+    Params008Component,
     OperationsParam001Component,
     LoginComponent,
     LoginWebComponent,
@@ -125,7 +128,8 @@ registerLocaleData(localeEs);
     MatExpansionModule,
     MatTabsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatTooltipModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },

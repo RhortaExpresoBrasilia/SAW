@@ -1,28 +1,45 @@
-<mat-card class="custom-card">
-  <mat-card-header>
-    <!--app-input-file style="width: 100%;" (enableButton)="habilitar($event)"
-          (fileData)="onDataReceived($event)"></app-input-file-->
-  </mat-card-header>
+<mat-card class="custom-card">  
+  <div class="banner">
+    <h3>Información Detalle de Viaje de Pasajeros</h3>
+  </div>
 
   <div class="container-fluid mt-3">
     <div class="row">
       <div class="col">
-        <mat-card-actions align="end" class="content-buttons">
-          <div class="title">INFORMACIÓN DE VIAJE DE PASAJEROS</div>
-          <div><button mat-button class="btn-upload"><mat-icon>upload</mat-icon>Cargar</button></div>
-          <div><button mat-button class="btn-download"><mat-icon>description</mat-icon>Descargar</button></div>
+        <mat-card-actions align="end" class="content-buttons">                 
+          <div>
+              <button mat-button color="'white'" class="btn-upload" (click)="triggerFileInput()">
+                <mat-icon>upload</mat-icon>
+                Cargar
+              </button>
+              <input type="file" id="fileInput" (change)="onFileChange($event)" accept=".xlsx, .xls" style="display: none;" />
+          </div>
+          <div>
+              <button mat-button class="btn-download" (click)="downloadExcel()">
+                <mat-icon>description</mat-icon>Descargar
+              </button>
+          </div>            
+          <div>
+              <button mat-button class="btn-clear" (click)="clearData()">
+                <mat-icon>cleaning_services</mat-icon>Limpiar                   
+              </button>
+          </div>       
         </mat-card-actions>
       </div>
     </div>
   </div>
 
-
-
   <mat-card-content>
     <!-- <app-table [displayedColumns]="displayedColumns" [dataToTable]="dataToTable"></app-table> -->
-    <app-Table-bonds [headers]="headers" [displayButtons]="false" [data]="data" [itemsPerPage]="10"></app-Table-bonds>
+    <!--app-Table-bonds [headers]="headers" [displayButtons]="false" [data]="data" [itemsPerPage]="10"></app-Table-bonds-->
+    <app-Table-bonds [headers]="MyHeaders" [displayButtons]="false" [data]="transformedData" [itemsPerPage]="10"></app-Table-bonds>
+    <!--app-table [displayedColumns]="displayedColumns" [dataToTable]="dataToTable"></app-table-->
+   
+    
   </mat-card-content>
   <div class="overlay" *ngIf="loading"></div>
   <mat-progress-spinner *ngIf="loading" mode="indeterminate" class="spinner">
   </mat-progress-spinner>
 </mat-card>
+
+<!---->

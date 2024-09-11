@@ -11,6 +11,7 @@ import { Params005Component } from './Modules/Institucionales/Components/Params0
 import { Params006Component } from './Modules/Institucionales/Components/Params006/Params006.component';
 import { OperationsParam001Component } from './Modules/Operaciones/Components/OperationsParam001/OperationsParam001.component';
 import { Params007Component } from './Modules/ExperienciaCliente/Components/params007/params007.component';
+import { Params008Component } from './Modules/ExperienciaCliente/Components/params008/params008.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'http401', pathMatch: 'full' },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'param005/:username/:password', component: Params005Component, canActivate: [AuthGuard] },
   { path: 'param006/:username/:password', component: Params006Component, canActivate: [AuthGuard] },
   { path: 'param007/:username/:password', component: Params007Component, canActivate: [AuthGuard] },
+  { path: 'param008/:username/:password', component: Params008Component, canActivate: [AuthGuard] },
   { path: 'http401', component:Http401Component},
   // { path: 'operationsParam001/:username/:password',component:OperationsParam001Component }
   { path: 'operationsParam001/:validate/:empresa/:agencia/:autorizacion',component:OperationsParam001Component, pathMatch: 'full' }
