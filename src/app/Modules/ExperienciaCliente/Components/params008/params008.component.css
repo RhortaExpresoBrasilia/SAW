@@ -1,0 +1,46 @@
+/* Estilos para el banner */
+.banner {
+    background-color: #007bff; /* Color de fondo del banner */
+    color: #fff; /* Color del texto */
+    padding: 15px; /* Espaciado interno del banner */
+    text-align: center; /* Centra el texto en el banner */
+    font-size: 10px; /* Tamaño de la fuente del título */
+    font-weight: bold; /* Peso de la fuente */
+    margin-bottom: 20px; /* Espaciado debajo del banner */
+  }
+  table {
+    width: 90%;
+    margin:1rem auto;
+ }
+
+ .contenedor {
+    display: flex;
+    flex-direction: column;
+    margin:1rem auto;
+    max-width: 600px;
+    box-shadow: -1px 3px 66px 0px rgba(0,0,0,0.75);
+    padding: 1rem;
+} 
+
+/* Estilos para el banner */
+.banner {
+  background-color: #00529c; /* Color de fondo del banner */
+  color: #fff; /* Color del texto */
+  padding: 15px; /* Espaciado interno del banner */
+  text-align: center; /* Centra el texto en el banner */
+  font-size: 10px; /* Tamaño de la fuente del título */
+  font-weight: bold; /* Peso de la fuente */
+  margin-bottom: 20px; /* Espaciado debajo del banner */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra del banner */
+  /*font-family: 'New Order Bold', Helvetica, Arial, Lucida, sans-serif; /* Fuente del título */
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  border-radius: 8px 8px 0 0; /* Bordes redondeados esquinas superiores*/
+}
+
+.custom-card {
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.2); /* Sombra del contenedor */
+  position: relative; /* Asegura que el overlay y spinner se posicionen correctamente */
+  
+}
