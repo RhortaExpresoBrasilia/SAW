@@ -1,9 +1,9 @@
 <div class="table-responsive">
   <div class="row" *ngIf="displayButtons">
     <div class="col d-flex justify-content-end align-items-center">
-      <button mat-flat-button [color]="'primary'" (click)="proccessData()" class="mr-3">Crear bonos</button>
-      <button mat-fab [color]="'warn'" style="width: 40px; height: 40px;" (click)="exportAsExcel()">
-        <mat-icon>cloud_download</mat-icon>
+      <button mat-flat-button [color]="'primary'" (click)="proccessData()" class="mr-3"> <mat-icon>cloud_upload</mat-icon> Crear bonos</button>
+      <button mat-flat-button [color]="'warn'" [disabled]="habilitarDescarga"  (click)="exportAsExcel()">
+        <mat-icon>cloud_download</mat-icon> Descargar
       </button>
     </div>
   </div>

@@ -22,3 +22,32 @@
     z-index: 1000;
     color: red;
 }
+
+.center-header {
+    display: flex;
+    justify-content: center;
+    background: #00529c;
+    color:white;
+  }
+  
+  .center-header mat-card-title {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .center-header h4 {
+    margin: 0;
+    text-align: center;
+    margin-bottom: 20px; /* Añade espacio debajo del título */
+  }
+
+  .mat-button-toggle-checked {
+    background-color: #00529c !important; /* Color de fondo del botón seleccionado */
+    color: white !important; /* Color del texto del botón seleccionado */
+}
+
+.mat-button-toggle:hover{
+  background-color: #4496df !important;
+  color: white !important;
+}

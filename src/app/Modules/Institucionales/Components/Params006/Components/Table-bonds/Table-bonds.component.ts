@@ -24,6 +24,7 @@ export class TableBondsComponent implements OnInit {
   paginatedData: any[] = [];
   //Math: any;
 
+  habilitarDescarga: boolean = true;
   constructor(private _api: CreateBondsService, private route: ActivatedRoute,private _auth: AuthService) { }
 
 
@@ -69,6 +70,7 @@ export class TableBondsComponent implements OnInit {
       }
       this._api.cargaMasivaBonos(updatedArray, credentials).subscribe((response) => {
         this.loading = true;
+        this.habilitarDescarga = false;
         if (response.error == false) {
           const updatedArray1 = this.renameKeysInArray(response.data, keyMapping1);
           this.data = updatedArray1;
@@ -79,20 +81,20 @@ export class TableBondsComponent implements OnInit {
             icon: 'success',
             confirmButtonText: 'Aceptar'
           });
-
+          
           this.loading = false;
         }
       }, (error) => {
         
         Swal.fire({
           title: 'Error',
-          text: 'Hubo un error al cargar la información',
+          text: 'Hubo un error al cargar la información: ' + error.message,
           icon: 'error',
           confirmButtonText: 'Aceptar'
         });
 
         this.loading = false;
-        if(error === 401){
+        if(error.status != 200){
           this._auth.logout();
         }
         

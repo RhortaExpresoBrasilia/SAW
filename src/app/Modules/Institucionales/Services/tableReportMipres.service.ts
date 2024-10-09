@@ -92,7 +92,7 @@ export class TableReportMipresService {
       'Programacion': element.programacion ? element.programacion.ID : 0,
       'Entrega': element.entrega ? element.entrega.ID : 0,
       'ReporteEntrega': element.reporteEntrega ? element.reporteEntrega.id : 0,
-      'Facturacion': element.facturacion ? element.facturacion.ID : 0,
+      'Facturacion': element.facturacion ? element.facturacion.noFactura : 0,
       'empresa': element.cemp || ''
     }));
   

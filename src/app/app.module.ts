@@ -46,6 +46,9 @@ import { SpinnerComponent } from './components/share/Spinner/Spinner.component';
 import { TableComponent } from './components/share/table/table.component';
 import { AuthGuard } from './Guards/AuthGuard';
 
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { Params007Component } from './Modules/ExperienciaCliente/Components/params007/params007.component';
+import { Params008Component } from './Modules/ExperienciaCliente/Components/params008/params008.component';
 import { MY_DATE_FORMATS } from './Modules/Institucionales/Components/Params005/Components/Search-bonnus-for-date/date-formats';
 import { SearchBonnusForDateComponent } from './Modules/Institucionales/Components/Params005/Components/Search-bonnus-for-date/Search-bonnus-for-date.component';
 import { TableDownloadComponent } from './Modules/Institucionales/Components/Params005/Components/table-download/table-download.component';
@@ -63,9 +66,6 @@ import { LoginModalComponent } from './Modules/Operaciones/Components/Share/Logi
 import { AuthService } from './services/auth.service';
 import { ErrorInterceptorService } from './services/ErrorInterceptor.service';
 import { JwtInterceptorService } from './services/JwtInterceptor.service';
-import { Params007Component } from './Modules/ExperienciaCliente/Components/params007/params007.component';
-import { Params008Component } from './Modules/ExperienciaCliente/Components/params008/params008.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 registerLocaleData(localeEs);
@@ -129,7 +129,7 @@ registerLocaleData(localeEs);
     MatTabsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTooltipModule,
+    MatTooltipModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
