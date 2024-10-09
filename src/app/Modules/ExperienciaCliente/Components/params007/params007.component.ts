@@ -11,11 +11,11 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./params007.component.css']
 })
 export class Params007Component implements OnInit {
-  dataToTable: TableMipres[] = [];  
+  dataToTable: TableMipres[] = [];
   //@ViewChild(MatPaginator) paginator!: MatPaginator;
   //headers: string[] = ['# cliente', 'Nombre', 'Edad', 'Correo Electrónico'];
   headers: string[] = []; // Variable para almacenar los encabezados
-  MyHeaders: string[] = ['Empresa', 'Agencia de Venta', '# Tiquete', 'Origen','Destino','Cliente','$ Valor']; // Variable para almacenar los encabezados
+  MyHeaders: string[] = ['Empresa', 'Agencia de Venta', '# Tiquete', 'Origen', 'Destino', 'Cliente', '$ Valor']; // Variable para almacenar los encabezados
 
   data: any[] = [];
   MyData: any[] = [];
@@ -27,7 +27,7 @@ export class Params007Component implements OnInit {
     reporteEntrega: true,
     facturacion: true,
   }
-  
+
 
   loading: boolean = false; // Variable para mostrar el estado de carga
   color: string = 'primary';
@@ -39,25 +39,32 @@ export class Params007Component implements OnInit {
 
   keyMap: { [key: string]: string } = {
     "empresa": "Empresa",
-    "ageVenta": "Agencia de Venta",
-    "fechaViaje": "FechaViaje",
     "mesViaje": "MesViaje",
+    "fechaVenta": "FechaVenta",
+    "canalCompra": "CanalCompra",
+    "ageVenta": "Agencia de Venta",
+    "usuario": "Usuario",
     "tiquete": "# Tiquete",
     "estado": "Estado",
     "cedula": "Cedula",
     "nombre": "Cliente",
     "celular": "Celular",
     "email": "Email",
+    "edad": "Edad",
     "tipoCliente": "TipoCliente",
-    "origen": "Origen",
+    "fechaViaje": "FechaViaje",
+    "origen": "Origen",    
     "destino": "Destino",
     "ruta": "Ruta",
-    "hora": "Hora",
+    "hora": "Hora",    
     "nivelServicio": "NivelServicio",
-    "numbus": "NumBus",    
+    "numbus": "NumBus",
     "afiliado": "Afiliado",
-    "canalCompra": "CanalCompra",
-    "usuario": "Usuario",
+    "nomAfiliado": "NombreAfiliado",
+    "tripulacionTitular": "TripulacionTitular",
+    "nombretripulacionTitular": "NombretripulacionTitular",
+    "tripulacionRelevo": "TripulacionRelevo",
+    "nombretripulacionRelevo": "NombretripulacionRelevo",    
     "valor": "$ Valor"
   };
 
@@ -65,9 +72,9 @@ export class Params007Component implements OnInit {
 
   ngOnInit() { }
 
-    
+
   // Método para limpiar los datos de la tabla
-   clearData(): void {
+  clearData(): void {
     this.transformedData = [];
     location.reload();
   }
@@ -132,25 +139,9 @@ export class Params007Component implements OnInit {
           this.headers.forEach((header, index) => { // Itera sobre cada encabezado
             let value = row[index]; // Obtiene el valor correspondiente a la columna actual
 
-            // Formatear las fechas
-            if (value instanceof Date) { // Si el valor es una instancia de Date
-              value = this.formatDate(value); // Formatea el valor usando `formatDate`
-            } else if (typeof value === 'number' && !isNaN(value)) { // Si el valor es un número (posible fecha serial de Excel)
-              const date = XLSX.SSF.parse_date_code(value); // Convierte el número en un objeto de fecha usando la biblioteca XLSX
-              if (date) { // Si se obtiene una fecha válida
-                value = this.formatDate(new Date(date.y, date.m - 1, date.d)); // Formatea la fecha y la asigna al valor
-              }
-            } else if (typeof value === 'string' && !isNaN(Date.parse(value))) { // Si el valor es una cadena que puede ser parseada como fecha
-              const parsedDate = new Date(value); // Convierte la cadena en un objeto de fecha
-              if (!isNaN(parsedDate.getTime())) { // Verifica si la fecha es válida
-                value = this.formatDate(parsedDate); // Formatea la fecha y la asigna al valor
-              }
-            }
-
             obj[header] = value || ''; // Asigna el valor al encabezado correspondiente en el objeto. Si el valor es `undefined`, se asigna una cadena vacía
           });
-
-          return obj; // Devuelve el objeto resultante para la fila actual
+          return obj;
         });
 
         console.log('Headers:', this.headers); // Imprime los encabezados en la consola
@@ -174,10 +165,12 @@ export class Params007Component implements OnInit {
 
   // Método para formatear la fecha en formato DD/MM/YYYY
   formatDate(date: Date): string {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
+    console.log(date);
     const year = date.getFullYear();
-    return `${day}-${month}-${year}`;
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11, así que sumamos 1
+    const day = String(date.getDate()).padStart(2, '0'); // Aseguramos que el día tenga dos dígitos
+
+    return `${year}-${month}-${day}`;
   }
 
   // Método para descargar los datos como un archivo Excel
@@ -219,20 +212,23 @@ export class Params007Component implements OnInit {
     });
   }
 
-  obtenerViajes(){
+  obtenerViajes() {
     this._api.getViajes(this.data).subscribe(
-      (response)=>{
-     if (response.error == false) {
-      this.transformData(response.data);
-     }
-     this.loading = false; // Ocultar el spinner después de obtener datos
-    },(err)=>{
-      console.error('Error en la solicitud:', err);
-      this.loading = false; // Ocultar el spinner en caso de error
-    })
+      (response) => {
+        if (!response.error && response.data) {
+          console.log('data: ', response.data[0].data);
+          this.transformData(response.data[0].data);
+        }
+        this.loading = false; // Ocultar el spinner después de obtener datos
+      }, (err) => {
+        console.error('Error en la solicitud:', err);
+        this.loading = false; // Ocultar el spinner en caso de error
+      })
   }
 
   transformData(data: any[]) {
+    console.log("data recibida ", data[0].data);
+    
     // Aplanar el array exterior y mapear el contenido
     const flattenedData = data.flat().map(item => this.mapObjectKeys(item));
     this.transformedData = flattenedData;

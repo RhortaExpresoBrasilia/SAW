@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,13 @@ export class ExperienciaAlClienteService {
   constructor(private http: HttpClient) { }
 
   getViajes(data: any): Observable<any> {
-    return this.http.post<any>(`${environment.url}/api/v1/experiencia-cliente/`, data)
+    return this.http.post<any>(`${environment.urlv4}/api/v1/experiencia-cliente/`, data)
   }
+
+  getHeaders() {
+    return new HttpHeaders({ 'Content-Type': 'application/json' })
+  }
+
 
   test() {
     return [
